@@ -1,6 +1,6 @@
 {
-    "name": "c0nstantx/load",
-    "description": "PHP library for config loading in APCu",
+    "name": "taxibeat/load",
+    "description": "PHP library for config loading",
     "type": "library",
     "require": {
         "php": ">=7.2",
