@@ -33,6 +33,7 @@ class Config
         $this->cache = $cache;
         $this->separator = $separator;
         $this->cacheLoaded = $this->isConfigLoaded();
+        $this->registerSignals();
     }
 
     /**
@@ -56,18 +57,12 @@ class Config
     }
 
     /**
-     * Get configuration value
-     *
-     * @param string $key
-     *
-     * @return null|mixed
+     * Reloads configuration in cache
      */
-    public function get(string $key, $default = null)
+    public function reload(): void
     {
-        if (!$this->cacheLoaded) {
-            return $default;
-        }
-        return $this->cache->get($key);
+        $this->clear();
+        $this->load();
     }
 
     /**
@@ -114,6 +109,21 @@ class Config
     }
 
     /**
+     * Get configuration value
+     *
+     * @param string $key
+     *
+     * @return null|mixed
+     */
+    public function get(string $key, $default = null)
+    {
+        if (!$this->cacheLoaded) {
+            return $default;
+        }
+        return $this->cache->get($key);
+    }
+
+    /**
      * Create flattened keys for complex configuration values
      *
      * For example:
@@ -152,5 +162,16 @@ class Config
         }
 
         return $flattenConfig;
+    }
+
+    /**
+     * Register signals for configuration reloading
+     */
+    private function registerSignals(): void
+    {
+        pcntl_async_signals(true);
+        pcntl_signal(SIGUSR2,  function($signo) {
+            $this->reload();
+        });
     }
 }

@@ -39,6 +39,12 @@ class ConfigTest extends TestCase
         $this->config = new Config($loader);
     }
 
+    public function tearDown(): void
+    {
+        parent::tearDown();
+        apcu_clear_cache();
+    }
+
     public function testLoad(): void
     {
         $this->assertFalse($this->config->isConfigLoaded());
@@ -52,6 +58,14 @@ class ConfigTest extends TestCase
         $this->assertTrue($this->config->isConfigLoaded());
         $this->config->clear();
         $this->assertFalse($this->config->isConfigLoaded());
+    }
+
+    public function testReload(): void
+    {
+        $this->config->load();
+        $this->assertTrue($this->config->isConfigLoaded());
+        $this->config->reload();
+        $this->assertTrue($this->config->isConfigLoaded());
     }
 
     public function testGet(): void

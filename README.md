@@ -53,3 +53,13 @@ $config->load();
 // Get configuration values
 $val = $config->get('var');
 ```
+
+## Reload configuration
+
+Configuration can be reloaded by sending `SIGUSR2` to PHP running process for `CLI` scripts and in `php-fpm` master process for  `HTTP` scripts.
+
+Reloading can also be invoked in code by using the following code:
+
+```php
+$config->reload();
+```
