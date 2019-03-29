@@ -110,7 +110,7 @@ class Config
      */
     public function isConfigLoaded(): bool
     {
-        return $this->get(self::CONFIG_CACHED_FLAG_NAME) === true;
+        return $this->cache->get(self::CONFIG_CACHED_FLAG_NAME) === true;
     }
 
     /**
