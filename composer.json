@@ -1,0 +1,27 @@
+{
+    "name": "c0nstantx/load",
+    "description": "PHP library for config loading in APCu",
+    "type": "library",
+    "require": {
+        "php": ">=7.2",
+        "ext-apcu": "*",
+        "ext-json": "*",
+        "ext-pcntl": "*",
+        "sensiolabs/consul-php-sdk": "^3.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "MOP\\": "src/",
+            "MOP\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Constantinos Christofilos",
+            "email": "k.christofilos@thebeat.co"
+        }
+    ]
+}

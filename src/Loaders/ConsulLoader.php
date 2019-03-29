@@ -1,0 +1,95 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MOP\Loaders;
+
+use MOP\Interfaces\Loader;
+use SensioLabs\Consul\ServiceFactory;
+use SensioLabs\Consul\Services\KVInterface;
+
+class ConsulLoader implements Loader
+{
+    const CONSUL_KEY_SEPARATOR = '/';
+
+    /** @var string */
+    private $root;
+
+    /** @var KVInterface */
+    private $kv;
+
+    public function __construct(string $root = '', KVInterface $kv = null)
+    {
+        $this->root = $root;
+        if (is_null($kv)) {
+            $sf = new ServiceFactory();
+            $kv = $sf->get(KVInterface::class);
+        }
+        $this->kv = $kv;
+    }
+
+    /**
+     * Load configuration
+     *
+     * @return array
+     */
+    public function load(): array
+    {
+        $keys = $this->getAvailableKeys();
+        $values = [];
+        foreach($keys as $key) {
+            $valueResponse = $this->kv->get($key, ['raw' => true]);
+            $values[$key] = $valueResponse->getBody();
+        }
+
+        return $this->expandKV($values);
+    }
+
+    /**
+     * Expand Consul key/value structure to associative array
+     *
+     * @param array $values
+     *
+     * @return array
+     */
+    private function expandKV(array $values): array
+    {
+        //Strip root from keys
+        $rootLength = strlen($this->root);
+        if ($rootLength > 0) {
+            $rootLength++;
+        }
+        $strippedValues = [];
+        foreach($values as $key => $value) {
+            $strippedValues[substr($key, $rootLength)] = $value;
+        }
+
+        //Expand to array
+        $array = [];
+        foreach($strippedValues as $key => $value) {
+            $keyParts = explode(self::CONSUL_KEY_SEPARATOR, $key);
+            $pointer = &$array;
+            foreach($keyParts as $keyPart) {
+                if (!isset($pointer[$keyPart])) {
+                    $pointer[$keyPart] = null;
+                }
+                $pointer = &$pointer[$keyPart];
+            }
+            $pointer = $value;
+        }
+
+        return $array;
+    }
+    /**
+     * Returns available keys from Consul
+     *
+     * @return array
+     */
+    private function getAvailableKeys(): array
+    {
+        $response = $this->kv->get($this->root, ['keys' => true]);
+        $keyList = json_decode($response->getBody(), true);
+
+        return $keyList;
+    }
+}
