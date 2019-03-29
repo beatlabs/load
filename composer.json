@@ -2,6 +2,7 @@
     "name": "taxibeat/load",
     "description": "PHP library for config loading",
     "type": "library",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7.2",
         "ext-apcu": "*",

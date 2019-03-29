@@ -40,6 +40,9 @@ $val = $config->get('var');
 Consul (Custom server *myhost:8000* with root path "services/my-service"):
 
 ```php
+$options = [
+    "base_uri" => "myhost:8000"
+];
 $sf = new SensioLabs\Consul\ServiceFactory($options);
 $kv = $sf->get(SensioLabs\Consul\Services\KVInterface::class);
 $loader = new MOP\Loaders\ConsulLoader('services/my-service', $kv);
