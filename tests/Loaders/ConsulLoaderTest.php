@@ -7,6 +7,7 @@ namespace MOP\Tests\Loaders;
 use MOP\Loaders\ConsulLoader;
 use PHPUnit\Framework\TestCase;
 use SensioLabs\Consul\ConsulResponse;
+use SensioLabs\Consul\Exception\ClientException;
 use SensioLabs\Consul\Services\KVInterface;
 
 class ConsulLoaderTest extends TestCase
@@ -25,6 +26,22 @@ class ConsulLoaderTest extends TestCase
         $this->assertEquals('foo', $config['fer']);
     }
 
+    public function testLoadWithMissingKeys(): void
+    {
+        $kv = $this->buildKV();
+        $loader = new ConsulLoader('missing', $kv);
+        $config = $loader->load();
+        $this->assertEmpty($config);
+    }
+
+    public function testLoadWithError(): void
+    {
+        $this->expectException(ClientException::class);
+        $kv = $this->buildKV();
+        $loader = new ConsulLoader('error', $kv);
+        $config = $loader->load();
+    }
+
     private function buildKV(): KVInterface
     {
         $kv = $this->getMockBuilder(KVInterface::class)
@@ -38,12 +55,18 @@ class ConsulLoaderTest extends TestCase
         $kv->expects($this->any())
             ->method('get')
             ->willReturnCallback(function(string $key = '', array $options = []) {
-                $data = [
-                    'services/dconf-demo/fer' => 'foo',
-                    'services/dconf-demo/foo/bar' => 'baz',
-                    'services/dconf-demo/foo/barr' => 'bazz',
-                    'services/dconf-demo/fooo/barr/bazz/boo' => 'hoo'
-                ];
+                if ($key === 'missing') {
+                    throw new ClientException("Missing key", 404);
+                } else if ($key === 'error') {
+                    throw new ClientException("Error fetching keys", 500);
+                } else {
+                    $data = [
+                        'services/dconf-demo/fer' => 'foo',
+                        'services/dconf-demo/foo/bar' => 'baz',
+                        'services/dconf-demo/foo/barr' => 'bazz',
+                        'services/dconf-demo/fooo/barr/bazz/boo' => 'hoo'
+                    ];
+                }
                 if (isset($options['keys'])) {
                     $body = json_encode(array_keys($data));
                 } else {

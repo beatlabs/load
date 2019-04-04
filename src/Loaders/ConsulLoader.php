@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MOP\Loaders;
 
 use MOP\Interfaces\Loader;
+use SensioLabs\Consul\Exception\ClientException;
 use SensioLabs\Consul\ServiceFactory;
 use SensioLabs\Consul\Services\KVInterface;
 
@@ -87,8 +88,16 @@ class ConsulLoader implements Loader
      */
     private function getAvailableKeys(): array
     {
-        $response = $this->kv->get($this->root, ['keys' => true]);
-        $keyList = json_decode($response->getBody(), true);
+        try {
+            $response = $this->kv->get($this->root, ['keys' => true]);
+            $keyList = json_decode($response->getBody(), true);
+        } catch (ClientException $ex) {
+            // If root key is missing return empty list, else rethrow exception
+            if ($ex->getCode() === 404) {
+                return [];
+            }
+            throw $ex;
+        }
 
         return $keyList;
     }
