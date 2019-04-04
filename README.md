@@ -1,4 +1,4 @@
-# LOAD
+# LOAD [![Build Status](https://travis-ci.com/taxibeat/load.svg?token=8cbpgLNGBxrmyFqzy42T&branch=master)](https://travis-ci.com/taxibeat/load)
 
 **LOAD** is a PHP library for configuration loading to **APCu**
 
