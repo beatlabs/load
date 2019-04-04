@@ -4,7 +4,7 @@ dist: xenial
 php:
   - '7.2'
 
-script: ./vendor/bin/phpunit ./tests
+script: php -d extension=apcu.so -d apc.enabled=1 -d apc.enable_cli=1 ./vendor/bin/phpunit ./tests
 
 before_script:
   - composer install
