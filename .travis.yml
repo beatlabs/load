@@ -4,7 +4,8 @@ dist: xenial
 php:
   - '7.2'
 
-script: php -d extension=apcu.so -d apc.enabled=1 -d apc.enable_cli=1 ./vendor/bin/phpunit ./tests
+script: php -d apc.enabled=1 -d apc.enable_cli=1 ./vendor/bin/phpunit ./tests
 
 before_script:
+  - echo "extension=apcu.so" >> /home/travis/.phpenv/versions/$(php -v | grep ^PHP | cut -d' ' -f2)/etc/php.ini
   - composer install
