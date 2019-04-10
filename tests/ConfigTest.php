@@ -36,7 +36,7 @@ class ConfigTest extends TestCase
                     ]
                 ]
             ]);
-        $this->config = new Config($loader);
+        $this->config = new Config([$loader]);
     }
 
     public function tearDown(): void
@@ -71,8 +71,8 @@ class ConfigTest extends TestCase
     public function testGet(): void
     {
         $this->config->load();
-        $this->assertEquals('hoo', $this->config->get('fooo/barr/bazz/boo'));
-        $this->assertEquals('baz', $this->config->get('foo/bar'));
+        $this->assertEquals('hoo', $this->config->get('fooo.barr.bazz.boo'));
+        $this->assertEquals('baz', $this->config->get('foo.bar'));
         $this->assertEquals('foo', $this->config->get('fer'));
         $this->assertEquals([
             'barr' => [
@@ -92,9 +92,9 @@ class ConfigTest extends TestCase
     public function testGetWithClearedCache(): void
     {
         $this->config->load();
-        $this->assertEquals('hoo', $this->config->get('fooo/barr/bazz/boo'));
+        $this->assertEquals('hoo', $this->config->get('fooo.barr.bazz.boo'));
         $this->config->clear();
-        $this->assertNull($this->config->get('fooo/barr/bazz/boo'));
+        $this->assertNull($this->config->get('fooo.barr.bazz.boo'));
     }
 
     public function testHas(): void
@@ -111,5 +111,46 @@ class ConfigTest extends TestCase
         $this->assertTrue($this->config->has('fer'));
         $this->config->clear();
         $this->assertFalse($this->config->has('fer'));
+    }
+
+    public function testLoadWithMultipleLoaders(): void
+    {
+        $loader1 = $this->getMockBuilder(Loader::class)
+            ->setMethods([
+                'load'
+            ])
+            ->getMockForAbstractClass();
+        $loader1->expects($this->any())
+            ->method('load')
+            ->willReturn([
+                'foo' => [
+                    'bar' => 'baz',
+                ],
+                'fer' => 'foo',
+                'fooo' => [
+                    'barr' => [
+                        'bazz' => [
+                            'boo' => 'hoo'
+                        ]
+                    ]
+                ]
+            ]);
+        $loader2 = $this->getMockBuilder(Loader::class)
+            ->setMethods([
+                'load'
+            ])
+            ->getMockForAbstractClass();
+        $loader2->expects($this->any())
+            ->method('load')
+            ->willReturn([
+                'foo' => 'baz',
+                'fer' => [
+                    'bar' => 'foo'
+                ],
+            ]);
+
+        $config = new Config([$loader1, $loader2]);
+        $config->load();
+        $this->assertEquals('baz', $config->get('foo'));
     }
 }

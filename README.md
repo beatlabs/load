@@ -8,6 +8,7 @@ Available sources for configuration loading are:
 
 - PHP file
 - Consul
+- Environment variables
 
 ## Install
 
@@ -18,8 +19,8 @@ Available sources for configuration loading are:
 PHP file:
 
 ```php
-$loader = new MOP\Loaders\PHPLoader('config.php');
-$config = new MOP\Config($loader);
+$loader = new MOP\Loaders\PHPLoader('config.php'); // Config file
+$config = new MOP\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -30,7 +31,7 @@ Consul (Default server *localhost:8500*):
 
 ```php
 $loader = new MOP\Loaders\ConsulLoader();
-$config = new MOP\Config($loader);
+$config = new MOP\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -47,12 +48,38 @@ $sf = new SensioLabs\Consul\ServiceFactory($options);
 $kv = $sf->get(SensioLabs\Consul\Services\KVInterface::class);
 $loader = new MOP\Loaders\ConsulLoader('services/my-service', $kv);
 
-$config = new MOP\Config($loader);
+$config = new MOP\Config([$loader]);
 $config->load();
 
 // Get configuration values
 $val = $config->get('var');
 ```
+
+Environment variables:
+
+```php
+$loader = new MOP\Loaders\EnvLoader('PREFIX_'); // Define environment variables prefix to be loaded
+$config = new MOP\Config([$loader]);
+$config->load();
+
+// Get configuration values
+$val = $config->get('var');
+
+```
+
+Multiple loaders:
+```php
+$consulLoader = new MOP\Loaders\ConsulLoader();
+$fileLoader = new MOP\Loaders\PHPLoader('config.php');
+$envLoader = new MOP\Loaders\EnvLoader('PREFIX_');
+$config = new MOP\Config([$consulLoader, $fileLoader, $envLoader]);
+$config->load();
+
+// Get configuration values
+$val = $config->get('var');
+```
+
+Loaders are executed in order and they override any configuration load.ed from previous loaders.
 
 ## Reload configuration
 

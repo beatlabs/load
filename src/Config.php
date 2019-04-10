@@ -12,8 +12,8 @@ class Config
 {
     const CONFIG_CACHED_FLAG_NAME = 'config_cached';
 
-    /** @var Loader */
-    private $loader;
+    /** @var Loader[] */
+    private $loaders;
 
     /** @var Cache */
     private $cache;
@@ -24,12 +24,12 @@ class Config
     /** @var bool */
     private $cacheLoaded = false;
 
-    public function __construct(Loader $loader, Cache $cache = null, string $separator = '/')
+    public function __construct(array $loaders, Cache $cache = null, string $separator = '.')
     {
         if (is_null($cache)) {
             $cache = new ApcuCache();
         }
-        $this->loader = $loader;
+        $this->loaders = $loaders;
         $this->cache = $cache;
         $this->separator = $separator;
         $this->cacheLoaded = $this->isConfigLoaded();
@@ -41,7 +41,10 @@ class Config
      */
     public function load(): void
     {
-        $config = $this->loader->load();
+        $config = [];
+        foreach($this->loaders as $loader) {
+            $config = array_merge($config, $loader->load());
+        }
         $this->cacheConfig($config);
         $this->cache->set(self::CONFIG_CACHED_FLAG_NAME, true);
         $this->cacheLoaded = true;
