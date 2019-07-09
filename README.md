@@ -90,3 +90,15 @@ Reloading can also be invoked in code by using the following code:
 ```php
 $config->reload();
 ```
+
+## How to Contribute
+
+See [Contribution Guidelines](CONTRIBUTE.md)
+
+## Code of conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project and its community you agree to abide by those terms.
+
+## Changelog
+
+You can see changelog [here](CHANGELOG.md)
