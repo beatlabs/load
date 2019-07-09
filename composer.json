@@ -1,5 +1,5 @@
 {
-    "name": "taxibeat/load",
+    "name": "beatlabs/load",
     "description": "PHP library for config loading",
     "type": "library",
     "minimum-stability": "stable",
@@ -21,8 +21,8 @@
     },
     "authors": [
         {
-            "name": "Constantinos Christofilos",
-            "email": "k.christofilos@thebeat.co"
+            "name": "BeatLabs",
+            "email": "beatlabs@thebeat.co"
         }
     ]
 }
