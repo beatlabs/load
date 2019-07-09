@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MOP;
+namespace BeatLabs;
 
-use MOP\Caches\ApcuCache;
-use MOP\Interfaces\Cache;
-use MOP\Interfaces\Loader;
+use BeatLabs\Caches\ApcuCache;
+use BeatLabs\Interfaces\Cache;
+use BeatLabs\Interfaces\Loader;
 
 class Config
 {

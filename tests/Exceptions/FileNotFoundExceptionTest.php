@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MOP\Tests\Exceptions;
+namespace BeatLabs\Tests\Exceptions;
 
-use MOP\Exceptions\FileNotFoundException;
+use BeatLabs\Exceptions\FileNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 class FileNotFoundExceptionTest extends TestCase

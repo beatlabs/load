@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MOP\Loaders;
+namespace BeatLabs\Loaders;
 
-use MOP\Interfaces\Loader;
+use BeatLabs\Interfaces\Loader;
 
 class EnvLoader implements Loader
 {

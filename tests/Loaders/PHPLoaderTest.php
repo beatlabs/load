@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MOP\Tests\Loaders;
+namespace BeatLabs\Tests\Loaders;
 
-use MOP\Exceptions\FileNotFoundException;
-use MOP\Exceptions\InvalidPHPConfiguration;
-use MOP\Loaders\PHPLoader;
+use BeatLabs\Exceptions\FileNotFoundException;
+use BeatLabs\Exceptions\InvalidPHPConfiguration;
+use BeatLabs\Loaders\PHPLoader;
 use PHPUnit\Framework\TestCase;
 
 class PHPLoaderTest extends TestCase

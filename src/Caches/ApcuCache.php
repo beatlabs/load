@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MOP\Caches;
+namespace BeatLabs\Caches;
 
-use MOP\Interfaces\Cache;
+use BeatLabs\Interfaces\Cache;
 
 class ApcuCache implements Cache
 {

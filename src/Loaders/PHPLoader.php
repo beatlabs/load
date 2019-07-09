@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MOP\Loaders;
+namespace BeatLabs\Loaders;
 
-use MOP\Exceptions\FileNotFoundException;
-use MOP\Exceptions\InvalidPHPConfiguration;
-use MOP\Interfaces\Loader;
+use BeatLabs\Exceptions\FileNotFoundException;
+use BeatLabs\Exceptions\InvalidPHPConfiguration;
+use BeatLabs\Interfaces\Loader;
 
 class PHPLoader implements Loader
 {

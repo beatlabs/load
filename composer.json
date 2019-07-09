@@ -15,8 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "MOP\\": "src/",
-            "MOP\\Tests\\": "tests/"
+            "BeatLabs\\": "src/",
+            "BeatLabs\\Tests\\": "tests/"
         }
     },
     "authors": [

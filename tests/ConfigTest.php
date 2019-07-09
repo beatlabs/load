@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MOP\Tests;
+namespace BeatLabs\Tests;
 
-use MOP\Config;
-use MOP\Interfaces\Loader;
+use BeatLabs\Config;
+use BeatLabs\Interfaces\Loader;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase

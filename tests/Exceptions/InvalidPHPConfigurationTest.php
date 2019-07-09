@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MOP\Tests\Exceptions;
+namespace BeatLabs\Tests\Exceptions;
 
-use MOP\Exceptions\InvalidPHPConfiguration;
+use BeatLabs\Exceptions\InvalidPHPConfiguration;
 use PHPUnit\Framework\TestCase;
 
 class InvalidPHPConfigurationTest extends TestCase

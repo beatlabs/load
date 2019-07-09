@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MOP\Loaders;
+namespace BeatLabs\Loaders;
 
-use MOP\Interfaces\Loader;
+use BeatLabs\Interfaces\Loader;
 use SensioLabs\Consul\Exception\ClientException;
 use SensioLabs\Consul\ServiceFactory;
 use SensioLabs\Consul\Services\KVInterface;

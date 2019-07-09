@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MOP\Exceptions;
+namespace BeatLabs\Exceptions;
 
 use Throwable;
 

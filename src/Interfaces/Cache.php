@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MOP\Interfaces;
+namespace BeatLabs\Interfaces;
 
 interface Cache
 {
