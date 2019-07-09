@@ -42,7 +42,7 @@ class Config
     public function load(): void
     {
         $config = [];
-        foreach($this->loaders as $loader) {
+        foreach ($this->loaders as $loader) {
             $config = array_merge($config, $loader->load());
         }
         $this->cacheConfig($config);
@@ -91,12 +91,12 @@ class Config
     public function cacheConfig(array $config): void
     {
         // Save config as is
-        foreach($config as $key => $value) {
+        foreach ($config as $key => $value) {
             $this->cache->set($key, $value);
         }
         // Save flatten config
         $flat = $this->flattenConfig($config);
-        foreach($flat as $key => $value) {
+        foreach ($flat as $key => $value) {
             $this->cache->set($key, $value);
         }
     }
@@ -173,7 +173,7 @@ class Config
     private function registerSignals(): void
     {
         pcntl_async_signals(true);
-        pcntl_signal(SIGUSR2,  function($signo) {
+        pcntl_signal(SIGUSR2, function ($signo) {
             $this->reload();
         });
     }

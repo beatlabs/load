@@ -54,10 +54,10 @@ class ConsulLoaderTest extends TestCase
 
         $kv->expects($this->any())
             ->method('get')
-            ->willReturnCallback(function(string $key = '', array $options = []) {
+            ->willReturnCallback(function (string $key = '', array $options = []) {
                 if ($key === 'missing') {
                     throw new ClientException("Missing key", 404);
-                } else if ($key === 'error') {
+                } elseif ($key === 'error') {
                     throw new ClientException("Error fetching keys", 500);
                 } else {
                     $data = [
@@ -74,7 +74,6 @@ class ConsulLoaderTest extends TestCase
                 }
 
                 return new ConsulResponse([], $body);
-
             });
 
         return $kv;

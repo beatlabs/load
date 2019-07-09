@@ -38,7 +38,7 @@ class ConsulLoader implements Loader
     {
         $keys = $this->getAvailableKeys();
         $values = [];
-        foreach($keys as $key) {
+        foreach ($keys as $key) {
             $valueResponse = $this->kv->get($key, ['raw' => true]);
             $values[$key] = $valueResponse->getBody();
         }
@@ -61,16 +61,16 @@ class ConsulLoader implements Loader
             $rootLength++;
         }
         $strippedValues = [];
-        foreach($values as $key => $value) {
+        foreach ($values as $key => $value) {
             $strippedValues[substr($key, $rootLength)] = $value;
         }
 
         //Expand to array
         $array = [];
-        foreach($strippedValues as $key => $value) {
+        foreach ($strippedValues as $key => $value) {
             $keyParts = explode(self::CONSUL_KEY_SEPARATOR, $key);
             $pointer = &$array;
-            foreach($keyParts as $keyPart) {
+            foreach ($keyParts as $keyPart) {
                 if (!isset($pointer[$keyPart])) {
                     $pointer[$keyPart] = null;
                 }

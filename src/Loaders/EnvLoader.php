@@ -23,7 +23,7 @@ class EnvLoader implements Loader
     public function load(): array
     {
         $config = [];
-        foreach($_ENV as $key => $val) {
+        foreach ($_ENV as $key => $val) {
             if ($this->isValidKey($key)) {
                 $config[$key] = $val;
             }
