@@ -19,8 +19,8 @@ Available sources for configuration loading are:
 PHP file:
 
 ```php
-$loader = new MOP\Loaders\PHPLoader('config.php'); // Config file
-$config = new MOP\Config([$loader]);
+$loader = new BeatLabs\Loaders\PHPLoader('config.php'); // Config file
+$config = new BeatLabs\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -30,8 +30,8 @@ $val = $config->get('var');
 Consul (Default server *localhost:8500*):
 
 ```php
-$loader = new MOP\Loaders\ConsulLoader();
-$config = new MOP\Config([$loader]);
+$loader = new BeatLabs\Loaders\ConsulLoader();
+$config = new BeatLabs\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -46,9 +46,9 @@ $options = [
 ];
 $sf = new SensioLabs\Consul\ServiceFactory($options);
 $kv = $sf->get(SensioLabs\Consul\Services\KVInterface::class);
-$loader = new MOP\Loaders\ConsulLoader('services/my-service', $kv);
+$loader = new BeatLabs\Loaders\ConsulLoader('services/my-service', $kv);
 
-$config = new MOP\Config([$loader]);
+$config = new BeatLabs\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -58,8 +58,8 @@ $val = $config->get('var');
 Environment variables:
 
 ```php
-$loader = new MOP\Loaders\EnvLoader('PREFIX_'); // Define environment variables prefix to be loaded
-$config = new MOP\Config([$loader]);
+$loader = new BeatLabs\Loaders\EnvLoader('PREFIX_'); // Define environment variables prefix to be loaded
+$config = new BeatLabs\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -69,10 +69,10 @@ $val = $config->get('var');
 
 Multiple loaders:
 ```php
-$consulLoader = new MOP\Loaders\ConsulLoader();
-$fileLoader = new MOP\Loaders\PHPLoader('config.php');
-$envLoader = new MOP\Loaders\EnvLoader('PREFIX_');
-$config = new MOP\Config([$consulLoader, $fileLoader, $envLoader]);
+$consulLoader = new BeatLabs\Loaders\ConsulLoader();
+$fileLoader = new BeatLabs\Loaders\PHPLoader('config.php');
+$envLoader = new BeatLabs\Loaders\EnvLoader('PREFIX_');
+$config = new BeatLabs\Config([$consulLoader, $fileLoader, $envLoader]);
 $config->load();
 
 // Get configuration values
