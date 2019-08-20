@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BeatLabs;
 
-use BeatLabs\Caches\ApcuCache;
+use BeatLabs\Cache\ApcuCache;
 use BeatLabs\Interfaces\Cache;
 use BeatLabs\Interfaces\Loader;
 

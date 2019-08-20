@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Loaders;
+namespace BeatLabs\Loader;
 
 use BeatLabs\Interfaces\Loader;
 use SensioLabs\Consul\Exception\ClientException;

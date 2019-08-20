@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Exceptions;
+namespace BeatLabs\Exception;
 
 use Throwable;
 
