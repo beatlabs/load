@@ -12,7 +12,9 @@ Available sources for configuration loading are:
 
 ## Install
 
-*TODO: Create package in packagist*
+You can install `load` using [Composer](https://getcomposer.org/) by running the following:
+
+`composer require beatlabs/load`
 
 ## Usage
 
