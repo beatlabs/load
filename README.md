@@ -41,12 +41,11 @@ $val = $config->get('var');
 Consul (Custom server *myhost:8000* with root path "services/my-service"):
 
 ```php
+// You can get all available options here: https://docs.guzzlephp.org/en/6.5/quickstart.html#creating-a-client
 $options = [
     "base_uri" => "myhost:8000"
 ];
-$sf = new SensioLabs\Consul\ServiceFactory($options);
-$kv = $sf->get(SensioLabs\Consul\Services\KVInterface::class);
-$loader = new BeatLabs\Loader\ConsulLoader('services/my-service', $kv);
+$loader = new BeatLabs\Loader\ConsulLoader('services/my-service', $options);
 
 $config = new BeatLabs\Config([$loader]);
 $config->load();

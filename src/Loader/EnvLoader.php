@@ -8,6 +8,7 @@ use BeatLabs\Interfaces\Loader;
 
 class EnvLoader implements Loader
 {
+    /** @var string */
     private $envPrefix;
 
     public function __construct(string $prefix = "")
@@ -32,6 +33,11 @@ class EnvLoader implements Loader
         return $config;
     }
 
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
     public function isValidKey(string $key): bool
     {
         return substr($key, 0, strlen($this->envPrefix)) === $this->envPrefix;

@@ -20,16 +20,16 @@ class ConsulLoaderTest extends TestCase
 
     public function testLoad(): void
     {
-        $kv = $this->buildKV();
-        $loader = new ConsulLoader('services/dconf-demo', $kv);
+        $loader = new ConsulLoader('services/dconf-demo');
+        $this->injectMockedKV($loader);
         $config = $loader->load();
         $this->assertEquals('foo', $config['fer']);
     }
 
     public function testLoadWithMissingKeys(): void
     {
-        $kv = $this->buildKV();
-        $loader = new ConsulLoader('missing', $kv);
+        $loader = new ConsulLoader('missing');
+        $this->injectMockedKV($loader);
         $config = $loader->load();
         $this->assertEmpty($config);
     }
@@ -37,9 +37,18 @@ class ConsulLoaderTest extends TestCase
     public function testLoadWithError(): void
     {
         $this->expectException(ClientException::class);
+        $loader = new ConsulLoader('error');
+        $this->injectMockedKV($loader);
+        $loader->load();
+    }
+
+    private function injectMockedKV(ConsulLoader $loader): void
+    {
         $kv = $this->buildKV();
-        $loader = new ConsulLoader('error', $kv);
-        $config = $loader->load();
+        $reflection = new \ReflectionObject($loader);
+        $reflectionProperty = $reflection->getProperty('kv');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($loader, $kv);
     }
 
     private function buildKV(): KVInterface

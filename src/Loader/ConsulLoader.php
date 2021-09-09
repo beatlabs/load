@@ -19,14 +19,11 @@ class ConsulLoader implements Loader
     /** @var KVInterface */
     private $kv;
 
-    public function __construct(string $root = '', KVInterface $kv = null)
+    public function __construct(string $root = '', array $options = [])
     {
         $this->root = $root;
-        if (is_null($kv)) {
-            $sf = new ServiceFactory();
-            $kv = $sf->get(KVInterface::class);
-        }
-        $this->kv = $kv;
+        $sf = new ServiceFactory($options);
+        $this->kv = $sf->get(KVInterface::class);
     }
 
     /**

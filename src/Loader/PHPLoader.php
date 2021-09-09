@@ -10,6 +10,7 @@ use BeatLabs\Interfaces\Loader;
 
 class PHPLoader implements Loader
 {
+    /** @var string */
     private $file;
 
     public function __construct(string $file)
