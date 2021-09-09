@@ -20,6 +20,19 @@ You can install `load` using [Composer](https://getcomposer.org/) by running the
 
 PHP file:
 
+You can read a `PHP` file that returns an array.
+
+For example with `config.php`:
+```php
+return [
+    'var' => [
+        'sub-var' => 'sub-val',
+        'val',
+    ]   
+];
+```
+
+You can use the following:
 ```php
 $loader = new BeatLabs\Load\Loader\PHPLoader('config.php'); // Config file
 $config = new BeatLabs\Load\Config([$loader]);
@@ -58,7 +71,10 @@ $val = $config->get('var');
 
 Environment variables:
 
+You can have a prefix for environment variables so that you only include environment variables that start with that prefix. That gives the ability to load only what needed instead of entire environment as a configuration.
+
 ```php
+// Set variable
 $loader = new BeatLabs\Load\Loader\EnvLoader('PREFIX_'); // Define environment variables prefix to be loaded
 $config = new BeatLabs\Load\Config([$loader]);
 $config->load();
@@ -80,7 +96,62 @@ $config->load();
 $val = $config->get('var');
 ```
 
-Loaders are executed in order and they override any configuration load.ed from previous loaders.
+Loaders are executed in the order they are defined. Each loader will override any configuration loaded from previous loaders.
+
+## Custom cache
+
+By default, `load` uses `APCu` to cache configuration, but you can use your own cache (ex. Redis, Memcache etc.) by implementing the `BeatLabs\Load\Interfaces\Cache` interface and set it to `Config` constructor.
+
+For example:
+
+```php
+$cache = new CustomCache();
+$loader = new BeatLabs\Load\Loader\PHPLoader('config.php'); // Config file
+$config = new BeatLabs\Load\Config([$loader], $cache);
+$config->load();
+```
+
+## Configuration flattening
+
+Configuration values that have nested sub-values are flattened and can be fetched without further process.
+
+For example:
+
+`config.php`
+```php
+return [
+    'var' => [
+        'sub-var' => 'sub-val',
+        'val',
+    ]   
+];
+```
+
+Will behave like this:
+
+```php
+$loader = new BeatLabs\Load\Loader\PHPLoader('config.php'); // Config file
+$config = new BeatLabs\Load\Config([$loader]);
+$config->load();
+
+// Get configuration values
+$val1 = $config->get('var'); // $val = ['sub-var' => 'sub-val, 'val']
+$val2 = $config->get('var.sub-var'); // $val = 'sub-val'
+```
+
+The default separator is `.`, but you can set your own at `Config` constructor.
+
+For example:
+
+```php
+$loader = new BeatLabs\Load\Loader\PHPLoader('config.php'); // Config file
+$config = new BeatLabs\Load\Config([$loader], null, '_');
+$config->load();
+
+// Get configuration values
+$val1 = $config->get('var'); // $val = ['sub-var' => 'sub-val, 'val']
+$val2 = $config->get('var_sub-var'); // $val = 'sub-val'
+```
 
 ## Reload configuration
 
