@@ -20,6 +20,17 @@ You can install `load` using [Composer](https://getcomposer.org/) by running the
 
 PHP file:
 
+You can read a `PHP` file that returns an array. For example with `config.php`:
+```php
+return [
+    'var1' => [
+        'sub-var1' => 'sub-val1',
+        'val1',
+    ]   
+];
+```
+
+You can use the following:
 ```php
 $loader = new BeatLabs\Load\Loader\PHPLoader('config.php'); // Config file
 $config = new BeatLabs\Load\Config([$loader]);
@@ -58,7 +69,10 @@ $val = $config->get('var');
 
 Environment variables:
 
+You can have a prefix for environment variables so that you only include environment variables that start with that prefix. That gives the ability to load only what needed instead of entire environment as a configuration.
+
 ```php
+// Set variable
 $loader = new BeatLabs\Load\Loader\EnvLoader('PREFIX_'); // Define environment variables prefix to be loaded
 $config = new BeatLabs\Load\Config([$loader]);
 $config->load();
@@ -80,7 +94,7 @@ $config->load();
 $val = $config->get('var');
 ```
 
-Loaders are executed in order and they override any configuration load.ed from previous loaders.
+Loaders are executed in the order they are defined. Each loader will override any configuration loaded from previous loaders.
 
 ## Reload configuration
 
