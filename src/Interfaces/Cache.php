@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Interfaces;
+namespace BeatLabs\Load\Interfaces;
 
 interface Cache
 {

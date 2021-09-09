@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Cache;
+namespace BeatLabs\Load\Cache;
 
-use BeatLabs\Interfaces\Cache;
+use BeatLabs\Load\Interfaces\Cache;
 
 class ApcuCache implements Cache
 {

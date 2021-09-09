@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Tests\Cache;
+namespace BeatLabs\Load\Tests\Cache;
 
-use BeatLabs\Cache\ApcuCache;
+use BeatLabs\Load\Cache\ApcuCache;
 use PHPUnit\Framework\TestCase;
 
 class ApcuCacheTest extends TestCase

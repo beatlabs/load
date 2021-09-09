@@ -15,8 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "BeatLabs\\": "src/",
-            "BeatLabs\\Tests\\": "tests/"
+            "BeatLabs\\Load\\": "src/",
+            "BeatLabs\\Load\\Tests\\": "tests/"
         }
     },
     "authors": [

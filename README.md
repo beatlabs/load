@@ -21,8 +21,8 @@ You can install `load` using [Composer](https://getcomposer.org/) by running the
 PHP file:
 
 ```php
-$loader = new BeatLabs\Loader\PHPLoader('config.php'); // Config file
-$config = new BeatLabs\Config([$loader]);
+$loader = new BeatLabs\Load\Loader\PHPLoader('config.php'); // Config file
+$config = new BeatLabs\Load\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -32,8 +32,8 @@ $val = $config->get('var');
 Consul (Default server *localhost:8500*):
 
 ```php
-$loader = new BeatLabs\Loader\ConsulLoader();
-$config = new BeatLabs\Config([$loader]);
+$loader = new BeatLabs\Load\Loader\ConsulLoader();
+$config = new BeatLabs\Load\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -47,9 +47,9 @@ Consul (Custom server *myhost:8000* with root path "services/my-service"):
 $options = [
     "base_uri" => "myhost:8000"
 ];
-$loader = new BeatLabs\Loader\ConsulLoader('services/my-service', $options);
+$loader = new BeatLabs\Load\Loader\ConsulLoader('services/my-service', $options);
 
-$config = new BeatLabs\Config([$loader]);
+$config = new BeatLabs\Load\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -59,8 +59,8 @@ $val = $config->get('var');
 Environment variables:
 
 ```php
-$loader = new BeatLabs\Loader\EnvLoader('PREFIX_'); // Define environment variables prefix to be loaded
-$config = new BeatLabs\Config([$loader]);
+$loader = new BeatLabs\Load\Loader\EnvLoader('PREFIX_'); // Define environment variables prefix to be loaded
+$config = new BeatLabs\Load\Config([$loader]);
 $config->load();
 
 // Get configuration values
@@ -70,10 +70,10 @@ $val = $config->get('var');
 
 Multiple loaders:
 ```php
-$consulLoader = new BeatLabs\Loader\ConsulLoader();
-$fileLoader = new BeatLabs\Loader\PHPLoader('config.php');
-$envLoader = new BeatLabs\Loader\EnvLoader('PREFIX_');
-$config = new BeatLabs\Config([$consulLoader, $fileLoader, $envLoader]);
+$consulLoader = new BeatLabs\Load\Loader\ConsulLoader();
+$fileLoader = new BeatLabs\Load\Loader\PHPLoader('config.php');
+$envLoader = new BeatLabs\Load\Loader\EnvLoader('PREFIX_');
+$config = new BeatLabs\Load\Config([$consulLoader, $fileLoader, $envLoader]);
 $config->load();
 
 // Get configuration values

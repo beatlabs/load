@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Loader;
+namespace BeatLabs\Load\Loader;
 
-use BeatLabs\Interfaces\Loader;
+use BeatLabs\Load\Interfaces\Loader;
 
 class EnvLoader implements Loader
 {

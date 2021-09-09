@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Tests;
+namespace BeatLabs\Load\Tests;
 
-use BeatLabs\Config;
-use BeatLabs\Interfaces\Loader;
+use BeatLabs\Load\Config;
+use BeatLabs\Load\Interfaces\Loader;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Loader;
+namespace BeatLabs\Load\Loader;
 
-use BeatLabs\Exception\FileNotFoundException;
-use BeatLabs\Exception\InvalidPHPConfiguration;
-use BeatLabs\Interfaces\Loader;
+use BeatLabs\Load\Exception\FileNotFoundException;
+use BeatLabs\Load\Exception\InvalidPHPConfiguration;
+use BeatLabs\Load\Interfaces\Loader;
 
 class PHPLoader implements Loader
 {

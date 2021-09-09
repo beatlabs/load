@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Tests\Loader;
+namespace BeatLabs\Load\Tests\Loader;
 
-use BeatLabs\Loader\EnvLoader;
+use BeatLabs\Load\Loader\EnvLoader;
 use PHPUnit\Framework\TestCase;
 
 class EnvLoaderTest extends TestCase

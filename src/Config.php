@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs;
+namespace BeatLabs\Load;
 
-use BeatLabs\Cache\ApcuCache;
-use BeatLabs\Interfaces\Cache;
-use BeatLabs\Interfaces\Loader;
+use BeatLabs\Load\Cache\ApcuCache;
+use BeatLabs\Load\Interfaces\Cache;
+use BeatLabs\Load\Interfaces\Loader;
 
 class Config
 {

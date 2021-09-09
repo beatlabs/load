@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BeatLabs\Tests\Loader;
+namespace BeatLabs\Load\Tests\Loader;
 
-use BeatLabs\Loader\ConsulLoader;
+use BeatLabs\Load\Loader\ConsulLoader;
 use PHPUnit\Framework\TestCase;
 use SensioLabs\Consul\ConsulResponse;
 use SensioLabs\Consul\Exception\ClientException;
